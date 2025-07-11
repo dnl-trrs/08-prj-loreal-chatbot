@@ -7,8 +7,8 @@
 
 /* —— body + fonts —— */
 body {
-  font-family: "Montserrat", Arial, Helvetica, sans-serif;
-  color: #333;
+  font-family: "Helvetica Now Display", Helvetica, Arial, sans-serif;
+  color: #000;
   display: flex;
   justify-content: center;
 }
@@ -21,7 +21,15 @@ body {
 /* header */
 .site-header {
   text-align: center;
-  padding-top: 50px;
+  padding: 20px;
+  background-color: #000;
+  color: #fff;
+}
+
+.logo {
+  height: 50px;
+  vertical-align: middle;
+  margin-bottom: 10px;
 }
 
 .site-title {
@@ -42,7 +50,7 @@ body {
   font-size: 18px;
   line-height: 1.5;
   overflow-y: auto;
-  background: #fafafa;
+  background: #fff;
   white-space: pre-line;
 }
 
@@ -81,7 +89,7 @@ body {
 
 .chat-form button {
   font-size: 18px;
-  background: #000;
+  background: #C6A664;
   color: #fff;
   border: none;
   padding: 12px;
@@ -99,7 +107,7 @@ body {
 }
 
 .chat-form button:hover {
-  background: #666666;
+  background: #b08f58;
 }
 
 .chat-form button:focus {
