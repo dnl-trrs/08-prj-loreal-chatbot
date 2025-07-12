@@ -14,27 +14,54 @@ export default {
       return new Response(null, { headers: corsHeaders });
     }
 
+    if (request.method !== 'POST') {
+      return new Response(JSON.stringify({ error: 'Method Not Allowed' }), {
+        status: 405,
+        headers: corsHeaders
+      });
+    }
+
     const apiKey = env.OPENAI_API_KEY; // Make sure to name your secret OPENAI_API_KEY in the Cloudflare Workers dashboard
     const apiUrl = 'https://api.openai.com/v1/chat/completions';
-    const userInput = await request.json();
+
+    let requestBodyInput;
+    try {
+      requestBodyInput = await request.json();
+      if (!Array.isArray(requestBodyInput.messages)) {
+        throw new Error("Invalid request: 'messages' must be an array");
+      }
+    } catch (err) {
+      return new Response(JSON.stringify({ error: err.message }), {
+        status: 400,
+        headers: corsHeaders
+      });
+    }
 
     const requestBody = {
       model: 'gpt-4o',
-      messages: userInput.messages,
-      max_completion_tokens: 300,
+      messages: requestBodyInput.messages,
+      temperature: 0.7,
+      max_tokens: 300,
+      stream: false
     };
 
-    const response = await fetch(apiUrl, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${apiKey}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(requestBody)
-    });
+    try {
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${apiKey}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestBody)
+      });
 
-    const data = await response.json();
-
-    return new Response(JSON.stringify(data), { headers: corsHeaders });
+      const data = await response.json();
+      return new Response(JSON.stringify(data), { headers: corsHeaders });
+    } catch (error) {
+      return new Response(JSON.stringify({ error: "Failed to fetch from OpenAI" }), {
+        status: 500,
+        headers: corsHeaders
+      });
+    }
   }
 };
