@@ -4,7 +4,11 @@ const userInput = document.getElementById("userInput");
 const chatWindow = document.getElementById("chatWindow");
 
 // Display welcome message
-chatWindow.innerHTML = "👋 Hello! How can I help you today?";
+chatWindow.innerHTML = "";
+const welcomeMsg = document.createElement("div");
+welcomeMsg.className = "msg ai";
+welcomeMsg.textContent = "👋 Hello! How can I help you today?";
+chatWindow.appendChild(welcomeMsg);
 
 // L’Oréal-specific system prompt
 const systemPrompt = {
@@ -22,7 +26,10 @@ chatForm.addEventListener("submit", async (e) => {
   if (!input) return;
 
   // Display user message
-  chatWindow.innerHTML += `<div class="msg user">${input}</div>`;
+  const userMsg = document.createElement("div");
+  userMsg.className = "msg user";
+  userMsg.textContent = input;
+  chatWindow.appendChild(userMsg);
   userInput.value = "";
 
   // Prepare message list
@@ -38,10 +45,17 @@ chatForm.addEventListener("submit", async (e) => {
     const data = await response.json();
 
     const reply = data.choices?.[0]?.message?.content?.trim() || "⚠️ No response received.";
-    chatWindow.innerHTML += `<div class="msg ai">${reply}</div>`;
+    const aiMsg = document.createElement("div");
+    aiMsg.className = "msg ai";
+    aiMsg.textContent = reply;
+    chatWindow.appendChild(aiMsg);
     chatWindow.scrollTop = chatWindow.scrollHeight;
   } catch (err) {
     console.error("API Error:", err);
-    chatWindow.innerHTML += `<div class="msg ai">⚠️ There was an error contacting the assistant.</div>`;
+    const errorMsg = document.createElement("div");
+    errorMsg.className = "msg ai";
+    errorMsg.textContent = "⚠️ There was an error contacting the assistant.";
+    chatWindow.appendChild(errorMsg);
+    chatWindow.scrollTop = chatWindow.scrollHeight;
   }
 });
