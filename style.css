@@ -25,6 +25,7 @@ body {
   border: 1px solid #ddd;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   overflow: hidden;
 }
 
@@ -53,7 +54,7 @@ body {
 /* chat window */
 .chatbox {
   flex-grow: 1;
-  margin: 40px 0;
+  margin: 0;
 }
 
 .chat-window {
@@ -156,6 +157,7 @@ body {
 
 /* footer */
 .site-footer {
+  flex: 0 0 auto;
   border-bottom-left-radius: 40px;
   border-bottom-right-radius: 40px;
   margin: 0;
