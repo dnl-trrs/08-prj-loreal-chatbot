@@ -30,6 +30,7 @@ chatForm.addEventListener("submit", async (e) => {
   userMsg.className = "msg user";
   userMsg.textContent = input;
   chatWindow.appendChild(userMsg);
+  chatWindow.scrollTop = chatWindow.scrollHeight;
   userInput.value = "";
 
   // Prepare message list
