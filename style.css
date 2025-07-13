@@ -16,6 +16,7 @@ body {
 .page-wrapper {
   width: 90%;
   max-width: 900px;
+  border: 1px solid #ddd;
 }
 
 /* header */
@@ -159,4 +160,36 @@ body {
 
 .site-footer a:hover {
   color: #666666;
+}
+
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.msg {
+  animation: fadeInUp 0.3s ease-in-out;
+}
+
+@media (max-width: 500px) {
+  .page-wrapper {
+    width: 90%;
+    border-radius: 20px;
+    margin-top: 2vh;
+  }
+
+  .chat-window {
+    font-size: 16px;
+  }
+
+  .chat-form input {
+    font-size: 16px;
+  }
 }
